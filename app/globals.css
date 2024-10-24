@@ -3,21 +3,28 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
   }
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
 }
 
 @layer utilities {
@@ -25,3 +32,38 @@ body {
     text-wrap: balance;
   }
 }
+
+  @media print {
+  
+      .print-button {
+          display: none; /* Masquer le bouton d'impression lors de l'impression */
+      }
+  
+      /* Vous pouvez également personnaliser d'autres styles d'impression ici */
+      body * {
+          display: none; /* Masquer tout le contenu par défaut */
+      }
+  
+      /* Afficher uniquement le contenu à imprimer */
+      #printable-area, #printable-area * {
+          display: block;
+         
+      }
+
+      .print-flex {
+        display: flex;
+        width: 100px;
+        flex-direction: column; /* Ou 'row' selon votre besoin */
+        justify-content: center;
+        align-items: flex-start; /* Alignez comme vous le souhaitez */
+    }
+    #imprimer{
+      display: none;
+    }
+    title{
+      display: none;
+    }
+
+
+
+  }
