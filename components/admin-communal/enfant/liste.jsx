@@ -5,6 +5,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import DetailEnfant from '@/components/secretaire/modals/enfant/detail'
 import PrintExtraitDeNaissance from "@/components/secretaire/modals/enfant/extrait-acte-de-naissance"
 import { SessionContext } from "@/components/context/Auth"
+import HeaderCount from "../header-count"
 function ListedesEnfants() {
   const searchParams = useSearchParams()
   const [data,setData]=useState([]);
@@ -115,8 +116,6 @@ useEffect(()=>{
            const datas=await res.json()
            if (datas) {
             setData(datas.results);
-            //setNombreDiplome(datas.nombrediplome)
-            //setNombreBulletin(datas.nombreBulletin)
       
          }  
 
@@ -162,41 +161,8 @@ const handleClickOutside = (event) => {
     <main className="bg-white-300 flex-1 p-3 overflow-hidden" >
 
     <div className="flex flex-col">
-   
-        <div className="flex flex-1 flex-col md:flex-row lg:flex-row mx-2">
-            <div className="shadow-lg bg-black border-l-8 hover:bg-red-vibrant-dark border-red-vibrant-dark mb-2 p-2  md:w-1/3 mx-2">
-                <div className="p-4 flex flex-col">
-                    <a href="#" className="no-underline text-white text-2xl">
-                        5000
-                    </a>
-                    <a href="#" className="no-underline text-white text-lg">
-                        Enfants 
-                    </a>
-                </div>
-            </div>
+       < HeaderCount/>
 
-            <div className="shadow bg-black border-l-8 hover:bg-info-dark border-info-dark mb-2 p-2 md:w-1/3 mx-2">
-                <div className="p-4 flex flex-col">
-                    <a href="#" className="no-underline text-white text-2xl">
-                    6000
-                    </a>
-                    <a href="#" className="no-underline text-white text-lg">
-                     Familles 
-                    </a>
-                </div>
-            </div>
-
-            <div className="shadow bg-black border-l-8 hover:bg-warning-dark border-warning-dark mb-2 p-2 md:w-1/3 mx-2">
-                <div className="p-4 flex flex-col">
-                    <a href="#" className="no-underline text-white text-2xl">
-                        9
-                    </a>
-                    <a href="#" className="no-underline text-white text-lg">
-                      Naissance Enregistre dans ce mois 
-                    </a>
-                </div>
-            </div>
-        </div>
         <div className="flex flex-col md:flex-row gap-3 py-8">
     <div className="">
    

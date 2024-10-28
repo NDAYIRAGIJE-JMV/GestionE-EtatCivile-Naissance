@@ -5,6 +5,7 @@ const ActionsGroupe=({
      uuid,
     // active,
      etat,
+     handleModifier,
    handleShowDetail,
   // handleActive,
    //handleSuspendu,
@@ -18,7 +19,7 @@ const ActionsGroupe=({
         <>
   
       <>
-     <div className="bg-slate-800 w-[8.5rem] h-[8.8rem] ml-[-5rem] rounded-sm">
+     <div className="bg-slate-800 w-[8.5rem] h-[9.8rem] ml-[50rem] rounded-sm mt-16">
     <div className="w-full h-full flex flex-col space-y-2 my-1">
         <button
          onClick={()=>handleShowDetail(uuid)}
@@ -28,7 +29,7 @@ const ActionsGroupe=({
         </button>
 
         <button
-          
+           onClick={()=>handleModifier(uuid)}
           className="w-full text-white hover:bg-slate-600" 
         >
           Modifier

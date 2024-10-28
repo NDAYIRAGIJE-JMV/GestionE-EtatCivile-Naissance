@@ -1,13 +1,12 @@
 import executeQuery from "@/database/db";
 
-export async function POST(request) {
+export async function GET(request) {
     const name = request.headers.get("name");
     const pereconnu = request.headers.get("pereconnu"); // Fixed spelling
-    const idcommune = request.headers.get("idcommune"); 
+    console.log(name, pereconnu)
     try {
         // Call the stored procedure with appropriate parameters
-        console.log(name,idcommune)
-        const result = await executeQuery("CALL getEnfantParCommune(?, ?, ? ,? ,?)", [0, name , name,pereconnu,1]);
+        const result = await executeQuery("CALL getAllEnfant(?, ?, ? ,?)", [0, name , pereconnu, name]);
         // Assuming result[0] contains the data returned by the stored procedure
         const results = result[0];
         console.log(results); // Logging the results for debugging

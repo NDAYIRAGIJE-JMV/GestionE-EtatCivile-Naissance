@@ -6,6 +6,7 @@ import DetailEtatCivil from "@/components/secretaire/modals/etatcivil/detail";
 import MortaliteForm from "@/components/secretaire/modals/etatcivil/mortalite";
 import PrintExtraitDeMariage from "../../secretaire/modals/etatcivil/extrait-acte-de-mariage";
 import { SessionContext } from "@/components/context/Auth";
+import HeaderCount from "../header-count"
 function ListedesEtatCivil() {
   const [data, setData] = useState([]);
   const [showActions, setShowActions] = useState(false);
@@ -22,6 +23,7 @@ function ListedesEtatCivil() {
   const [etat, setEtat] = useState("");
   const [Details, setDetails] = useState([]);
   const users=useContext(SessionContext)
+
   const handleShowDetail = async (id) => {
     setShowDetail(true);
 
@@ -104,11 +106,10 @@ function ListedesEtatCivil() {
           name: searchParams.get("name") || "",
         },
       });;
+      
       const datas = await res.json();
       if (datas) {
         setData(datas.results);
-        //setNombreDiplome(datas.nombrediplome)
-        //setNombreBulletin(datas.nombreBulletin)
       }
     } catch (error) {
       console.log("error");
@@ -216,40 +217,7 @@ function ListedesEtatCivil() {
     <>
       <main className="bg-white-300 flex-1 p-3 overflow-hidden">
         <div className="flex flex-col">
-          <div className="flex flex-1 flex-col md:flex-row lg:flex-row mx-2">
-            <div className="shadow-lg bg-black border-l-8 hover:bg-red-vibrant-dark border-red-vibrant-dark mb-2 p-2  md:w-1/3 mx-2">
-              <div className="p-4 flex flex-col">
-                <a href="#" className="no-underline text-white text-2xl">
-                  5000
-                </a>
-                <a href="#" className="no-underline text-white text-lg">
-                  Enfants
-                </a>
-              </div>
-            </div>
-
-            <div className="shadow bg-black border-l-8 hover:bg-info-dark border-info-dark mb-2 p-2 md:w-1/3 mx-2">
-              <div className="p-4 flex flex-col">
-                <a href="#" className="no-underline text-white text-2xl">
-                  6000
-                </a>
-                <a href="#" className="no-underline text-white text-lg">
-                  Familles
-                </a>
-              </div>
-            </div>
-
-            <div className="shadow bg-black border-l-8 hover:bg-warning-dark border-warning-dark mb-2 p-2 md:w-1/3 mx-2">
-              <div className="p-4 flex flex-col">
-                <a href="#" className="no-underline text-white text-2xl">
-                  9
-                </a>
-                <a href="#" className="no-underline text-white text-lg">
-                  Naissance Enregistre dans ce mois
-                </a>
-              </div>
-            </div>
-          </div>
+          <HeaderCount />
 
           <div className="flex flex-col md:flex-row gap-3 py-8">
             <div className="">

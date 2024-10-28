@@ -1,24 +1,18 @@
 "use client";
 import React, { useEffect, useState, useRef } from "react";
-import ActionsGroupe from "../../admin-communal/etatcivil/action-groupe";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import DetailEtatCivil from "@/components/secretaire/modals/etatcivil/detail";
-import MortaliteForm from "@/components/secretaire/modals/etatcivil/mortalite";
-import PrintExtraitDeMariage from "../../secretaire/modals/etatcivil/extrait-acte-de-mariage";
+import HeaderCount from "../header-count";
 function ListedesEtatCivil() {
   const [data, setData] = useState([]);
   const [showActions, setShowActions] = useState(false);
   const [showdetail, setShowDetail] = useState(false);
-  const [showOpenPrint, setShowOpenPrint] = useState(false);
-  const [showOpenMortaliteForm, setShowOpenMortaliteForm] = useState(false);
   const searchParams = useSearchParams();
   const { push } = useRouter();
   const pathname = usePathname();
   const [searchValue, setSearchValue] = useState("");
   const detailsRef = useRef(null);
-  const [uuid, setUuid] = useState("");
-  const [active, setActive] = useState("");
-  const [etat, setEtat] = useState("");
+
   const [Details, setDetails] = useState([]);
 
   const handleShowDetail = async (id) => {
@@ -46,36 +40,10 @@ function ListedesEtatCivil() {
       }
     }
   };
-  const handleShowExtrait = async (id) => {
-    setShowOpenPrint(true);
-    setShowActions(false);
-
-    if (id) {
-      try {
-        const requestOptions = {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            id: id,
-          }),
-        };
-        const res = await fetch(
-          "/secretaire/api/liste-mariages",
-          requestOptions
-        );
-        const datas = await res.json();
-        setDetails(datas.results[0]);
-      } catch (error) {
-        console.log("error");
-      }
-    }
-  };
 
   const closeModal = () => {
     setShowDetail(false);
-    setShowOpenMortaliteForm(false);
+   
   };
 
   const handleSearch = async (key, value) => {
@@ -93,7 +61,7 @@ function ListedesEtatCivil() {
   }, [searchParams]);
   const fetchData = async () => {
     try {
-      const res = await fetch("/secretaire/api/liste-mariages", {
+      const res = await fetch("/supperadmin/api/liste-mariages", {
         headers: {
           name: searchParams.get("name") || "",
         },
@@ -109,12 +77,6 @@ function ListedesEtatCivil() {
     }
   };
 
-  const openActions = (uuid, active, etat) => {
-    setActive(active);
-    setEtat(etat);
-    setUuid(uuid);
-    setShowActions(true);
-  };
 
   const handleClickOutside = (event) => {
     if (detailsRef.current && !detailsRef.current.contains(event.target)) {
@@ -122,78 +84,8 @@ function ListedesEtatCivil() {
     }
   };
 
-  const handleActive = async (id) => {
-    if (id) {
-      try {
-        const requestOptions = {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            id: id,
-          }),
-        };
-        const res = await fetch("/secretaire/api/active", requestOptions);
-        const datas = await res.json();
-        if (datas.message == "success") {
-          window.location.reload();
-        }
-      } catch (error) {
-        console.log("error");
-      }
-    }
-  };
 
-  const handleMortalite = async (id) => {
-    setShowOpenMortaliteForm(true);
-    setUuid(id);
-  };
-
-  const handleSuspendu = async (id) => {
-    if (id) {
-      try {
-        const requestOptions = {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            id: id,
-          }),
-        };
-        const res = await fetch("/secretaire/api/suspendu", requestOptions);
-        const datas = await res.json();
-        if (datas.message == "success") {
-          window.location.reload();
-        }
-      } catch (error) {
-        console.log("error");
-      }
-    }
-  };
-  const handleValider = async (id) => {
-    if (id) {
-      try {
-        const requestOptions = {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            id: id,
-          }),
-        };
-        const res = await fetch("/secretaire/api/valide", requestOptions);
-        const datas = await res.json();
-        if (datas.message == "success") {
-          window.location.reload();
-        }
-      } catch (error) {
-        console.log("error");
-      }
-    }
-  };
+ 
   useEffect(() => {
     if (showActions) {
       document.addEventListener("mousedown", handleClickOutside);
@@ -209,40 +101,7 @@ function ListedesEtatCivil() {
     <>
       <main className="bg-white-300 flex-1 p-3 overflow-hidden ">
         <div className="flex flex-col">
-          <div className="flex flex-1 flex-col md:flex-row lg:flex-row mx-2">
-            <div className="shadow-lg bg-black border-l-8 hover:bg-red-vibrant-dark border-red-vibrant-dark mb-2 p-2  md:w-1/3 mx-2">
-              <div className="p-4 flex flex-col">
-                <a href="#" className="no-underline text-white text-2xl">
-                  5000
-                </a>
-                <a href="#" className="no-underline text-white text-lg">
-                  Enfants
-                </a>
-              </div>
-            </div>
-
-            <div className="shadow bg-black border-l-8 hover:bg-info-dark border-info-dark mb-2 p-2 md:w-1/3 mx-2">
-              <div className="p-4 flex flex-col">
-                <a href="#" className="no-underline text-white text-2xl">
-                  6000
-                </a>
-                <a href="#" className="no-underline text-white text-lg">
-                  Familles
-                </a>
-              </div>
-            </div>
-
-            <div className="shadow bg-black border-l-8 hover:bg-warning-dark border-warning-dark mb-2 p-2 md:w-1/3 mx-2">
-              <div className="p-4 flex flex-col">
-                <a href="#" className="no-underline text-white text-2xl">
-                  9
-                </a>
-                <a href="#" className="no-underline text-white text-lg">
-                  Naissance Enregistre dans ce mois
-                </a>
-              </div>
-            </div>
-          </div>
+         <HeaderCount />
 
           <div className="flex flex-col md:flex-row gap-3 py-8">
             <div className="">

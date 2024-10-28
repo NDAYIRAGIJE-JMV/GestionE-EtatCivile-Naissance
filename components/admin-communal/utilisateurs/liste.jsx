@@ -4,6 +4,7 @@ import React,{useState,useEffect,useContext} from "react"
 import FormCreateUsers from "@/components/admin-communal/utilisateurs/form-create"
 import FormUpdateUsers from "@/components/admin-communal/utilisateurs/update"
 import { SessionContext } from "@/components/context/Auth"
+import HeaderCount from "@/components/header-count"
 const Utilisateurs=()=>{
 
     const [openAdd,setOpenAdd]=useState(false)
@@ -102,8 +103,10 @@ useEffect(() => {
                 </div>
             </button>
         </main>} 
+   
+ 
 <div className=" relative text-white bg-white w-full ">
-
+<HeaderCount />
     <div className="p-4 flex">
         <h1 className="text-3xl text-black">Listes de Utilisateurs </h1>
         <button onClick={handleOpenAdd}

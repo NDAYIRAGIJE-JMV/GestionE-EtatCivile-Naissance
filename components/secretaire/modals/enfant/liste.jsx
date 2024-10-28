@@ -4,24 +4,27 @@ import ActionsGroupe from "../../../admin-communal/modal/actions-group"
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import DetailEnfant from '@/components/secretaire/modals/enfant/detail'
 import PrintExtraitDeNaissance from "@/components/secretaire/modals/enfant/extrait-acte-de-naissance"
-import { SessionContext } from "../../../context/Auth"
+import { SessionContext } from "@/components/context/Auth"
+import HeaderCount from "../../header-count"
+import UpdateChald from "@/components/secretaire/modals/enfant/update-form/enfant"
 function ListedesEnfants() {
   const searchParams = useSearchParams()
   const [data,setData]=useState([]);
  const [showActions,setShowActions]=useState(false)
  const [showOpenPrint,setShowOpenPrint]=useState(false)
  const [showdetail,setShowDetail]=useState(false)
+ const [showUpdate,setShowUpdate]=useState(false)
  const detailsRef = useRef(null);
  const [id,setId]=useState('')
  const [uuid,setUuid]=useState('')
  const [Details,setDetails]=useState([])
  const { push } = useRouter()
+ const router=useRouter()
  const pathname = usePathname()
  const [searchValue, setSearchValue] = useState("")
 const users=useContext(SessionContext)
  const handleShowDetail=async(id)=>{
      setShowDetail(true)
-    
 
      if (id) {
    try {
@@ -57,7 +60,10 @@ const users=useContext(SessionContext)
   }
 };
 
-
+const handleShowUpdate=(id)=>{
+   // setShowUpdate(true)
+    router.push(`/secretaire/enfant/modifier?uuid=${id}`);
+}
 
 const handleShowDocument=async(id)=>{
  setShowOpenPrint(true)
@@ -92,15 +98,14 @@ const handleShowDocument=async(id)=>{
  const closeModal=()=>{
    setShowDetail(false)
    setShowOpenPrint(false)
+   setShowUpdate(false)
 }
 
 
 useEffect(()=>{
   fetchData();
-},[ searchParams])
-
+},[ searchParams,users])
   const fetchData = async () => {
-   
       try{
 
         const res = await fetch('/admincommunal/api/enfant/liste',{
@@ -161,41 +166,7 @@ const handleClickOutside = (event) => {
     <main className="bg-white-300 flex-1 p-3 overflow-hidden" >
 
     <div className="flex flex-col">
-   
-        <div className="flex flex-1 flex-col md:flex-row lg:flex-row mx-2">
-            <div className="shadow-lg bg-black border-l-8 hover:bg-red-vibrant-dark border-red-vibrant-dark mb-2 p-2  md:w-1/3 mx-2">
-                <div className="p-4 flex flex-col">
-                    <a href="#" className="no-underline text-white text-2xl">
-                        5000
-                    </a>
-                    <a href="#" className="no-underline text-white text-lg">
-                        Enfants 
-                    </a>
-                </div>
-            </div>
-
-            <div className="shadow bg-black border-l-8 hover:bg-info-dark border-info-dark mb-2 p-2 md:w-1/3 mx-2">
-                <div className="p-4 flex flex-col">
-                    <a href="#" className="no-underline text-white text-2xl">
-                    6000
-                    </a>
-                    <a href="#" className="no-underline text-white text-lg">
-                     Familles 
-                    </a>
-                </div>
-            </div>
-
-            <div className="shadow bg-black border-l-8 hover:bg-warning-dark border-warning-dark mb-2 p-2 md:w-1/3 mx-2">
-                <div className="p-4 flex flex-col">
-                    <a href="#" className="no-underline text-white text-2xl">
-                        9
-                    </a>
-                    <a href="#" className="no-underline text-white text-lg">
-                      Naissance Enregistre dans ce mois 
-                    </a>
-                </div>
-            </div>
-        </div>
+      <HeaderCount />
         <div className="flex flex-col md:flex-row gap-3 py-8">
     <div className="">
    
@@ -298,6 +269,7 @@ const handleClickOutside = (event) => {
                                  uuid={uuid}
                                  handleShowDetail={handleShowDetail}
                                  handleShowDocument={handleShowDocument}
+                                 handleShowUpdate={handleShowUpdate}
                                  closeModal={closeModal}
                                 />
                                 </div>
@@ -313,6 +285,7 @@ const handleClickOutside = (event) => {
    
                     {showdetail && (<DetailEnfant closeModal={closeModal} id={id} Details={Details}/>)}
                     {showOpenPrint && (<PrintExtraitDeNaissance Details={Details}/>)}
+                    {showUpdate && (<UpdateChald id={id}  closeModal={closeModal} />)}
     </div>
 
 

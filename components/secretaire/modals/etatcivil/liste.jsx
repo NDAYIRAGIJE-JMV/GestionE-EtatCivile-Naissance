@@ -4,8 +4,9 @@ import ActionsGroupe from "../../../secretaire/modals/etatcivil/action-groupe";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import DetailEtatCivil from "@/components/secretaire/modals/etatcivil/detail";
 import MortaliteForm from "@/components/secretaire/modals/etatcivil/mortalite";
-import PrintExtraitDeMariage from "../etatcivil/extrait-acte-de-mariage";
+import PrintExtraitDeMariage from "../etatcivil/extrait-acte-de-mariage"
 import { SessionContext } from "@/components/context/Auth";
+import HeaderCount from "../../header-count";
 function ListedesEtatCivil() {
   const [data, setData] = useState([]);
   const [showActions, setShowActions] = useState(false);
@@ -14,6 +15,7 @@ function ListedesEtatCivil() {
   const [showOpenMortaliteForm, setShowOpenMortaliteForm] = useState(false);
   const searchParams = useSearchParams();
   const { push } = useRouter();
+  const router=useRouter();
   const pathname = usePathname();
   const [searchValue, setSearchValue] = useState("");
   const detailsRef = useRef(null);
@@ -74,6 +76,10 @@ function ListedesEtatCivil() {
     }
   };
 
+    const handleModifier = (uuid) => {
+      router.push(`/secretaire/etat-civil/modifier-chef-menage?uuid=${uuid}`);
+
+  };
   const closeModal = () => {
     setShowDetail(false);
     setShowOpenMortaliteForm(false);
@@ -216,40 +222,7 @@ function ListedesEtatCivil() {
     <>
       <main className="bg-white-300 flex-1 p-3 overflow-hidden">
         <div className="flex flex-col">
-          <div className="flex flex-1 flex-col md:flex-row lg:flex-row mx-2">
-            <div className="shadow-lg bg-black border-l-8 hover:bg-red-vibrant-dark border-red-vibrant-dark mb-2 p-2  md:w-1/3 mx-2">
-              <div className="p-4 flex flex-col">
-                <a href="#" className="no-underline text-white text-2xl">
-                  5000
-                </a>
-                <a href="#" className="no-underline text-white text-lg">
-                  Enfants
-                </a>
-              </div>
-            </div>
-
-            <div className="shadow bg-black border-l-8 hover:bg-info-dark border-info-dark mb-2 p-2 md:w-1/3 mx-2">
-              <div className="p-4 flex flex-col">
-                <a href="#" className="no-underline text-white text-2xl">
-                  6000
-                </a>
-                <a href="#" className="no-underline text-white text-lg">
-                  Familles
-                </a>
-              </div>
-            </div>
-
-            <div className="shadow bg-black border-l-8 hover:bg-warning-dark border-warning-dark mb-2 p-2 md:w-1/3 mx-2">
-              <div className="p-4 flex flex-col">
-                <a href="#" className="no-underline text-white text-2xl">
-                  9
-                </a>
-                <a href="#" className="no-underline text-white text-lg">
-                  Naissance Enregistre dans ce mois
-                </a>
-              </div>
-            </div>
-          </div>
+          <HeaderCount />
 
           <div className="flex flex-col md:flex-row gap-3 py-8">
             <div className="">
@@ -360,6 +333,7 @@ function ListedesEtatCivil() {
                       handleSuspendu={handleSuspendu}
                       handleValider={handleValider}
                       handleShowExtrait={handleShowExtrait}
+                      handleModifier={handleModifier}
                       closeModal={closeModal}
                     />
                   </div>

@@ -20,7 +20,7 @@ const SiderBarSupperAdmin=()=>{
    
   <MenuItem   className='hover:text-black'
             icon={<FontAwesomeIcon icon={faHome} className='text-black hover:text-black' />} // Utilisez l'icône ici
-            component={<Link href="/admin-communal/secretaires" />}
+            component={<Link href="/supperadmin" />}
         >
       Home 
       </MenuItem>

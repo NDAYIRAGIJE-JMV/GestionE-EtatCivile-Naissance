@@ -7,7 +7,7 @@ Footer=()=>{
   <>
   
 
-  <footer className="md:px-40 lg:px-2 backdrop-blur-2xl rounded border border-white p-4 2xl:px-24 bg-yellow-400 ">
+  <footer className="md:px-40 lg:px-2 backdrop-blur-2xl rounded border border-white p-4 2xl:px-24 bg-yellow-400">
         <div className="space-y-7 md:space-y-0 md:flex lg:space-x-12 xl:space-x-36">
             <div className="space-y-7 lg:space-y-0 lg:flex lg:space-x-12 xl:space-x-36">
            
@@ -55,15 +55,14 @@ Footer=()=>{
             <div>
                 <h3 className="font-bold">Cher visiteurs</h3>
                 <div className="flex">
-                 <p className="w-80 mt-4 mb-2">Dans Tous les comunes, Le Mister du Burundi nous somme a votre disposition </p>
-                 
+                 <p className="w-80 mt-4 mb-2">Dans Tous les comunes, Le Ministère de l’Intérieur, du Développement communautaire et de la Sécurité Publique est a votre disposition </p>
                 </div>
             </div>
             </div>
         </div>
         <div className="col-lg-12 text-center">
                 <span className="text-black">Copyright © 
-                    2024 - Développé par <>JMV</></span>
+                    2024 - Développé <>pour le fin du Cycle Master</></span>
             </div>
           
     </footer>

@@ -3,6 +3,7 @@
 import React,{useState,useEffect} from "react"
 import FormCreateUsers from "@/components/admin-communal/utilisateurs/form-create"
 import FormUpdateUsers from "@/components/admin-communal/utilisateurs/update"
+import HeaderCount from "../header-count"
 const Utilisateurs=()=>{
 
     const [openAdd,setOpenAdd]=useState(false)
@@ -95,9 +96,9 @@ useEffect(() => {
             </button>
         </main>} 
 <div className=" relative text-white bg-white w-full ">
-
+   <HeaderCount />
     <div className="p-4 flex">
-        <h1 className="text-3xl text-black">Listes de Utilisateurs </h1>
+        <h1 className="text-2xl text-black">Listes de Utilisateurs </h1>
         <button onClick={handleOpenAdd}
         className=" px-4 ml-[40rem] bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6">

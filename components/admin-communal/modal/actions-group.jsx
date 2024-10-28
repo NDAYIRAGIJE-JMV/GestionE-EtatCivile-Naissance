@@ -5,8 +5,8 @@ const ActionsGroupe=({
      id,
      uuid,
    handleShowDetail,
-   handleDisponibiliser,
    handleShowDocument,
+   handleShowUpdate
 
 })=>{
 
@@ -31,7 +31,7 @@ const ActionsGroupe=({
           editer
         </button>  */}
         <button
-          onClick={()=>handleDisponibiliser(id)}
+          onClick={()=>handleShowUpdate(id)}
           className="w-full text-white hover:bg-slate-600" 
         >
           Modifier

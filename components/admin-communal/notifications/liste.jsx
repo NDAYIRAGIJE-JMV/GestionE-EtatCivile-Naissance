@@ -1,6 +1,7 @@
 "use client"
 import React,{useState,useEffect,useContext} from "react"
 import { SessionContext } from '@/components/context/Auth';
+import HeaderCount from "@/components/admin-communal/header-count"
 const Notifications=()=>{
   const [data,setData]=useState([])
   const users= useContext(SessionContext)
@@ -38,9 +39,11 @@ const Notifications=()=>{
         }
       };
     return(
-
+      <>
+    <div className="w-full">
+      <HeaderCount />
 <div className="mb-2 border-solid border-yellow-300 rounded border-2 shadow-sm w-full">
-      
+    
 <div className="bg-gray-300 px-2 py-3 border-solid border-gray-200 border-b font-bold  text-center ">
    LISTE DES NOTIFICATIONS
 </div>
@@ -75,11 +78,9 @@ const Notifications=()=>{
     </table>
 
 </div>
-
-        
-
 </div>
-
+</div>
+</>
 )
 }
 
